@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started &mdash; Gene 1.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Gene 1.4 documentation" href="index.html"/>
+        <link rel="next" title="Writing Rules" href="writerules.html"/>
+        <link rel="prev" title="Welcome to Gene’s documentation!" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Gene
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing">Installing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#whids-or-how-to-use-gene-in-real-time">WHIDS or how to use Gene in real time</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Basic Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#where-do-i-find-rules">Where do I&nbsp;find rules?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writerules.html">Writing Rules</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Gene</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting Started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/getstart.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installing">
+<h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<p>Gene engine is a single executable without dependency. You can download the
+latest releases for your OS from our <a class="reference external" href="https://github.com/0xrawsec/gene/releases">Github</a></p>
+<div class="section" id="basic-usage">
+<h3>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assuming ./gene-rules is a directory containing your rules</span>
+<span class="c1"># Verifying that the rules are valid</span>
+gene -r ./gene-rules -verify
+
+<span class="c1"># Scanning a single file</span>
+gene -r ./gene-rules -progress sysmon.evtx
+
+<span class="c1"># Scanning several files</span>
+gene -r ./gene-rules -progress *.evtx
+
+<span class="c1"># Scanning Windows Events in JSON format (as printed by evtxdump)</span>
+gene -r ./gene-rules -progress -j sysmon.json
+
+<span class="c1"># Reading JSON Events from stdin</span>
+cat some-events.json <span class="p">|</span> gene -r ./gene-rules -progress -j -
+
+<span class="c1"># Scan Events and set blacklist and whitelist containers</span>
+gene -r ./gene-rules -bl blacklist.txt -wl whitelist.txt -j sysmon.json
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="whids-or-how-to-use-gene-in-real-time">
+<h2>WHIDS or how to use Gene in real time<a class="headerlink" href="#whids-or-how-to-use-gene-in-real-time" title="Permalink to this headline">¶</a></h2>
+<p>As Gene engine, WHIDS can be downloaded as a standalone executable on our
+<a class="reference external" href="https://github.com/0xrawsec/whids/releases">Github</a>. This tool is
+a powerful Host IDS built on top of Gene engine and capable of analyzing a big
+amount of events per seconds while taking limited resources.</p>
+<p>If you just want to test WHIDS, you can do it in a second by simply downloading and executing
+<a class="reference external" href="https://raw.githubusercontent.com/0xrawsec/whids/master/trial.ps1">trial.ps1</a></p>
+<div class="section" id="id2">
+<h3>Basic Usage<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># WHIDS expects to listen directly on Windows Log Channel</span>
+<span class="c"># but some aliases are hardcoded to prevent typing long Channel names</span>
+<span class="c"># To make WHIDS listening on Sysmon Channel</span>
+<span class="p">.\</span><span class="n">whids</span><span class="p">.</span><span class="n">exe</span> <span class="n">-r</span> <span class="p">./</span><span class="n">gene-rules</span> <span class="n">-c</span> <span class="n">sysmon</span>
+
+<span class="c"># To listen on both Sysmon and Security Channel and match event in real time</span>
+<span class="p">.\</span><span class="n">whids</span><span class="p">.</span><span class="n">exe</span> <span class="n">-r</span> <span class="p">./</span><span class="n">gene-rules</span> <span class="n">-c</span> <span class="s2">&quot;sysmon,security&quot;</span>
+
+<span class="c"># To listen on all aliased Windows Channels</span>
+<span class="p">.\</span><span class="n">whids</span><span class="p">.</span><span class="n">exe</span> <span class="n">-r</span> <span class="p">./</span><span class="n">gene-rules</span> <span class="n">-c</span> <span class="n">all</span>
+
+<span class="c"># Download latest version of rule repository and use it</span>
+<span class="p">.\</span><span class="n">whids</span><span class="p">.</span><span class="n">exe</span> <span class="n">-u</span> <span class="n">-c</span> <span class="n">all</span>
+
+<span class="c"># Log alerts to Windows Application log Channel</span>
+<span class="p">.\</span><span class="n">whids</span><span class="p">.</span><span class="n">exe</span> <span class="n">-r</span> <span class="p">./</span><span class="n">gene-rules</span> <span class="n">-winlog</span> <span class="n">-c</span> <span class="n">all</span>
+
+<span class="c"># Enable Windows Client-DNS logs and monitor according Channel</span>
+<span class="p">.\</span><span class="n">whids</span><span class="p">.</span><span class="n">exe</span> <span class="n">-r</span> <span class="p">./</span><span class="n">gene-rules</span> <span class="n">-dns</span> <span class="n">-c</span> <span class="n">dns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="where-do-i-find-rules">
+<h2>Where do I&nbsp;find rules?<a class="headerlink" href="#where-do-i-find-rules" title="Permalink to this headline">¶</a></h2>
+<p>We are maintaining a repository of rules, so feel free to download it
+<a class="reference external" href="https://github.com/0xrawsec/gene-rules">there</a> and use it.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="writerules.html" class="btn btn-neutral float-right" title="Writing Rules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to Gene’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, 0xrawsec.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

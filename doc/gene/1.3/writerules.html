@@ -1,0 +1,769 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Writing Rules &mdash; Gene 1.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Gene 1.3 documentation" href="index.html"/>
+        <link rel="prev" title="Getting Started" href="getstart.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Gene
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstart.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-the-format-supported-by-the-engine">Getting the format supported by the engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rule-structure">Rule Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#matches-format">Matches Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#field-matches">Field Matches</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#container-matches">Container Matches</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#traces-format">Traces Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Example:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#condition-format">Condition Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Example:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Gene</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Writing Rules</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/writerules.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="writing-rules">
+<h1>Writing Rules<a class="headerlink" href="#writing-rules" title="Permalink to this headline">¶</a></h1>
+<p>Gene rules have been designed to be straightforward to understand and to parse.
+In order not to have to develop a custom rule parser, we have decided to use JSON
+document as container. Then every rule, to work properly, has to follow a specific
+format which is going to be described in this page.</p>
+<div class="section" id="getting-the-format-supported-by-the-engine">
+<h2>Getting the format supported by the engine<a class="headerlink" href="#getting-the-format-supported-by-the-engine" title="Permalink to this headline">¶</a></h2>
+<p>A starting point to understand the format of a rule is to use the <code class="docutils literal notranslate"><span class="pre">gene</span></code> command
+line utility to get the format supported by your engine:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gene</span> <span class="o">-</span><span class="n">template</span>
+</pre></div>
+</div>
+<p>This command line should return a JSON&nbsp;document containing all the fields used
+by your current version of <code class="docutils literal notranslate"><span class="pre">gene</span></code>.</p>
+</div>
+<div class="section" id="rule-structure">
+<h2>Rule Structure<a class="headerlink" href="#rule-structure" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;Meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;EventIDs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;Computers&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;Traces&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;Criticality&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;Disable&quot;</span><span class="p">:</span> <span class="kc">false</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;Matches&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;Condition&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">The fields present in the template shown above are the ones used by the engine.
+It means that <strong>any</strong> additional field will not impact the engine. This
+trick can be used to document the rule. It is a good practice to add information
+such as <strong>Author</strong>, <strong>Comments</strong> and eventual <strong>Links</strong> in the <strong>Meta</strong> section.</p>
+</div>
+<table border="1" class="docutils" id="id5">
+<caption><span class="caption-text">Field Definition</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>string</td>
+<td>Name of the rule</td>
+</tr>
+<tr class="row-odd"><td>Tags</td>
+<td>[]string</td>
+<td>Contains a list of tags related to the rule. It
+can be used to group rules
+according to their tag(s).</td>
+</tr>
+<tr class="row-even"><td>Meta</td>
+<td>dict</td>
+<td>Contains a bunch of information related the trigger
+of the rule. The information in there is used to
+match against the “System” section of the Windows
+events to speed up the match.</td>
+</tr>
+<tr class="row-odd"><td>EventIDs</td>
+<td>[]int</td>
+<td>List of Windows Event IDs the rule should match
+against. If empty the rule will apply against any
+Event ID&nbsp;of the <code class="docutils literal notranslate"><span class="pre">Channels</span></code> (c.f. see next)</td>
+</tr>
+<tr class="row-even"><td>Channels</td>
+<td>[]string</td>
+<td>List of channels the rule should apply on. If
+empty, the rule will apply against any event of any
+channel.</td>
+</tr>
+<tr class="row-odd"><td>Computers</td>
+<td>[]string</td>
+<td>List of computer names the rule should apply on.
+If empty, the rule applies on all the computers.</td>
+</tr>
+<tr class="row-even"><td>Traces</td>
+<td>[]string</td>
+<td>List of traces used to trace other events related
+to the rule. A rule can be used to generate
+dynamic rules with information from the event which
+matched the rule. The syntax of each trace must
+follow <a class="reference internal" href="#traces-format">Traces Format</a>.</td>
+</tr>
+<tr class="row-odd"><td>Criticality</td>
+<td>0 &lt; int &lt; 10</td>
+<td>The criticality level attributed to the events
+matching the rule. If an event matches several
+rules the criticality levels are added between them
+and will never go above 10.</td>
+</tr>
+<tr class="row-even"><td>Disable</td>
+<td>bool</td>
+<td>Boolean value used to disable the rule.</td>
+</tr>
+<tr class="row-odd"><td>Matches</td>
+<td>[]string</td>
+<td>List of <strong>Matches</strong>, should follow the syntax of
+<a class="reference internal" href="#matches-format">Matches Format</a></td>
+</tr>
+<tr class="row-even"><td>Condition</td>
+<td>string</td>
+<td>String implementing the logic on the <strong>Matches</strong> to
+trigger the rule. The syntax should be compliant
+with <a class="reference internal" href="#condition-format">Condition Format</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">The more precise <strong>EventIDs</strong> and <strong>Channels</strong> fields, the faster the rule is.
+Those information are mainly used to filter out irrelevant events.</p>
+</div>
+<div class="section" id="matches-format">
+<h3>Matches Format<a class="headerlink" href="#matches-format" title="Permalink to this headline">¶</a></h3>
+<p>A <strong>Match</strong> can be seen as an atomic check which is done on every Windows Event
+(pre-filtered using <strong>Meta</strong> section of the rule) going through the engine. Every
+match can be referenced once or more in the <strong>Condition</strong> to create complex
+matching rule. Currently, the latest version of the engine supports two kinds of
+<strong>Matches</strong>.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">It is very important to remember that <strong>Matches</strong> only apply on the fields
+located under the <code class="docutils literal notranslate"><span class="pre">EventData</span></code> section of Windows Events.</p>
+</div>
+<div class="section" id="field-matches">
+<h4>Field Matches<a class="headerlink" href="#field-matches" title="Permalink to this headline">¶</a></h4>
+<p>A <strong>Field Match</strong> is basically an <strong>equality</strong> or a <strong>regex</strong> check done on a
+given <strong>field value</strong>. This kind of <strong>Match</strong> brings flexibility to the engine since
+anything can be matched through regular expression.</p>
+<p><strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">$VAR_NAME:</span> <span class="pre">FIELD</span> <span class="pre">OPERATOR</span> <span class="pre">'VALUE'</span></code></p>
+<table border="1" class="docutils" id="id6">
+<caption><span class="caption-text">Field Match Symbols Definition</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Symbols</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>VAR_NAME</td>
+<td>Name of the variable use to access the result of the <strong>Match</strong>
+in the <strong>Condition</strong>, it must be preceded by a <code class="docutils literal notranslate"><span class="pre">$</span></code></td>
+</tr>
+<tr class="row-odd"><td>FIELD</td>
+<td>Field to match with in <code class="docutils literal notranslate"><span class="pre">EventData</span></code> section of Windows Events</td>
+</tr>
+<tr class="row-even"><td>OPERATOR</td>
+<td><dl class="first last docutils">
+<dt>Operator to use for the match:</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">=</span></code> : equal operator</li>
+<li><code class="docutils literal notranslate"><span class="pre">~=</span></code> : regexp operator (tells to compile VALUE as a regex)</li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td>VALUE</td>
+<td>Must be surrounded by <strong>simple quotes</strong> <code class="docutils literal notranslate"><span class="pre">'</span></code>. This is the
+<strong>value/regex</strong> to match against to make <strong>$VAR_NAME = true</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Match Workflow:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    +-------+               +---------+
+    | Event |               |  Match  |
+    +-------+               +---------+
+        |      +----------+      |
+        +----&gt; |  Engine  | &lt;----+
+               +----------+
+                     |
+       +---------------------------+
+       | Extracts value from FIELD |
+       +---------------------------+
+                     |
+       +---------------------------+
+       |   Does value match VALUE  |
+       |   according to OPERATOR ? |
+       +---------------------------+
+                     |
+                     ^
+              YES  /   \  NO
+                  /     \
+                 /       \
+                /         \
++------------------+    +-------------------+
+| $VAR_NAME = true |    | $VAR_NAME = false |
++------------------+    +-------------------+
+                \         /
+                 \       /
+          +--------------------+
+          | $VAR_NAME value is |
+          |  used in condition |
+          +--------------------+
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Any regular expression must follow <a class="reference external" href="https://golang.org/pkg/regexp/syntax/">Go regexp syntax</a>.</p>
+</div>
+<div class="section" id="example">
+<h5>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h5>
+<p>The following snippet shows a rule used to catch Windows Event log clearing attempts
+using <code class="docutils literal notranslate"><span class="pre">wevutil.exe</span></code>.</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;EventClearing&quot;</span><span class="p">,</span>
+<span class="nt">&quot;Tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PostExploit&quot;</span><span class="p">],</span>
+<span class="nt">&quot;Meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;EventIDs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+  <span class="nt">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Microsoft-Windows-Sysmon/Operational&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;Computers&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;Criticality&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+  <span class="nt">&quot;Author&quot;</span><span class="p">:</span> <span class="s2">&quot;@0xrawsec&quot;</span>
+  <span class="p">},</span>
+<span class="nt">&quot;Matches&quot;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="s2">&quot;$im: Image ~= &#39;(?i:\\\\wevtutil\\.exe$)&#39;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;$cmd: CommandLine ~= &#39;(?i: cl | clear-log )&#39;&quot;</span>
+  <span class="p">],</span>
+<span class="nt">&quot;Condition&quot;</span><span class="p">:</span> <span class="s2">&quot;$im and $cmd&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">In order to match a single <code class="docutils literal notranslate"><span class="pre">\</span></code> Windows path separator, we need to use <code class="docutils literal notranslate"><span class="pre">\\\\</span></code>
+when using <code class="docutils literal notranslate"><span class="pre">=~</span></code> and <code class="docutils literal notranslate"><span class="pre">\\</span></code> when using <code class="docutils literal notranslate"><span class="pre">=</span></code> operator</p>
+</div>
+</div>
+</div>
+<div class="section" id="container-matches">
+<h4>Container Matches<a class="headerlink" href="#container-matches" title="Permalink to this headline">¶</a></h4>
+<p>An <strong>Container Match</strong> is a little bit more advanced since it can be used to extract
+a part of a <strong>field value</strong> and check it against a container. For
+instance, with this kind of <strong>Match</strong>, we are able to extract a <strong>domain</strong> information
+contained in Windows DNS-Client logs and check it against a blacklist. Although,
+implementing this use case would be possible with <strong>Field Matches</strong>, it
+would be much slower due to regex engine. In addition the rule would need to be updated
+at every new entry to check, however with <strong>Container Match</strong> only the container
+(a simple separate file) needs to be updated. The speed is provided by the
+container which is implemented in a form of a set data structure.</p>
+<p><strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">$VAR_NAME:</span> <span class="pre">extract('REGEXP',</span> <span class="pre">FIELD)</span> <span class="pre">in</span> <span class="pre">CONTAINER</span></code></p>
+<table border="1" class="docutils" id="id7">
+<caption><span class="caption-text">Container Match Symbols Definition</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Symbols</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>VAR_NAME</td>
+<td>Name of the variable used to access the result of the <strong>Match</strong>
+in the <strong>Condition</strong>, it must be preceded by a <code class="docutils literal notranslate"><span class="pre">$</span></code></td>
+</tr>
+<tr class="row-odd"><td>FIELD</td>
+<td>Field to extract from</td>
+</tr>
+<tr class="row-even"><td>REGEXP</td>
+<td>Regular expression used to extract a value from FIELD and check
+it against a <strong>CONTAINER</strong>. <strong>REGEXP</strong> must follow <strong>named</strong>
+regexp syntax <code class="docutils literal notranslate"><span class="pre">(?P&lt;name&gt;re)</span></code></td>
+</tr>
+<tr class="row-odd"><td>CONTAINER</td>
+<td>Container to use to check the extracted value</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<ul class="last simple">
+<li>If a rule makes use of an <strong>undefined container</strong>, the rule will be disabled
+at runtime and a warning message will be printed.</li>
+<li>A given container is shared across all the rules loaded into the engine</li>
+<li>Any regular expression must follow <a class="reference external" href="https://golang.org/pkg/regexp/syntax/">Go regexp syntax</a>.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h5>Example:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
+<p>This rule shows an example of how to extract domains and sub-domains from Windows
+DNS-Client logs and check it against a blacklist.</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;BlacklistedDomain&quot;</span><span class="p">,</span>
+<span class="nt">&quot;Tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;DNS&quot;</span><span class="p">],</span>
+<span class="nt">&quot;Meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;EventIDs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Microsoft-Windows-DNS-Client/Operational&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;Computers&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;Criticality&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="nt">&quot;Author&quot;</span><span class="p">:</span> <span class="s2">&quot;@0xrawsec&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Comment&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+  <span class="p">},</span>
+<span class="nt">&quot;Matches&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;$domainBL: extract(&#39;(?P&lt;dom&gt;\\w+\\.\\w+$)&#39;,QueryName) in blacklist&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$subdomainBL: extract(&#39;(?P&lt;sub&gt;\\w+\\.\\w+\\.\\w+$)&#39;,QueryName) in blacklist&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$subsubdomainBL: extract(&#39;(?P&lt;subsub&gt;\\w+\\.\\w+\\.\\w+\\.\\w+$)&#39;,QueryName) in blacklist&#39;&quot;</span>
+  <span class="p">],</span>
+<span class="nt">&quot;Condition&quot;</span><span class="p">:</span> <span class="s2">&quot;$domainBL or $subdomainBL or $subsubdomainBL&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="traces-format">
+<h3>Traces Format<a class="headerlink" href="#traces-format" title="Permalink to this headline">¶</a></h3>
+<p>A trace is used to generate a new rule <strong>on the fly</strong> derived from both the rule
+which triggered and the <strong>Windows Event</strong> which matched. This feature allows
+the engine to do some <strong>basic</strong> correlation. The rule generated is very basic
+and has a single match.</p>
+<p><strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">EVENT_IDS:CHANNELS:</span> <span class="pre">NEW_FIELD</span> <span class="pre">OPERATOR</span> <span class="pre">EVT_VAL_FIELD</span></code></p>
+<table border="1" class="docutils" id="id8">
+<caption><span class="caption-text">Trace Symbols Definition</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Symbols</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>EVENT_IDS</td>
+<td>Comma separated list of <strong>Windows Event IDs</strong> used to set
+EventIDs field of the new rule. If empty, default is to
+inherit from <strong>the rule defining the trace</strong>.</td>
+</tr>
+<tr class="row-odd"><td>CHANNELS</td>
+<td>Comma separated list of <strong>Windows Event Log Channels</strong> used to
+set <strong>Channels</strong> field of the generated rule. If empty, default
+is to inherit from <strong>the rule defining the trace</strong>.</td>
+</tr>
+<tr class="row-even"><td>NEW_FIELD</td>
+<td><strong>Field name</strong> to use for the <strong>single Match</strong> of the generated
+rule.</td>
+</tr>
+<tr class="row-odd"><td>OPERATOR</td>
+<td><dl class="first last docutils">
+<dt>Operator to use for the match:</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">=</span></code> : equal operator</li>
+<li><code class="docutils literal notranslate"><span class="pre">~=</span></code> : regexp operator (tells to compile VALUE as a regex)</li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td>EVT_VAL_FIELD</td>
+<td>Name of the field in the matching <strong>Windows Event</strong> to extract
+the value from and used as <strong>VALUE</strong> in the generated rule</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Keywords <code class="docutils literal notranslate"><span class="pre">any</span></code>, <code class="docutils literal notranslate"><span class="pre">ANY</span></code> or <code class="docutils literal notranslate"><span class="pre">*</span></code> can be used instead  of comma separated list
+in <strong>EVENT_IDS</strong> and <strong>CHANNELS</strong> to respectively apply trace on any Event ID
+and any Channel.</p>
+</div>
+<p>The concept behind the traces is maybe a little bit hard to get (and also to explain).
+That is why, in the following snippet, I have tried to show what a generated rule
+from a trace would look like.</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;GENERATED_NAME&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;inherited from triggering rule&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;Meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;EventIDs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;inherited from triggering rule OR set from trace&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;inherited from triggering rule OR set from trace&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;Computers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;inherited from triggering rule&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;Traces&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;inherited from triggering rule&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;Criticality&quot;</span><span class="p">:</span> <span class="s2">&quot;inherited from triggering rule&quot;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;Matches&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;$m: NEW_FIELD OPERATOR &#39;ValueOf(CUR_FIELD) extracted from Matching Event&#39;&quot;</span><span class="p">,</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;Condition&quot;</span><span class="p">:</span> <span class="s2">&quot;$m&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Traces generation is not enabled by default by the engine, in order to enable
+it, use the <code class="docutils literal notranslate"><span class="pre">-trace</span></code> command line switch</li>
+<li>When trace mode is enabled, many rules can be generated at runtime and the
+engine will by design become slower since <strong>any Windows Event</strong> matches
+<strong>any</strong> rule loaded.</li>
+<li>If <strong>X</strong> number of traces is defined, <strong>X</strong> rules will be generated at runtime when
+<strong>trace mode</strong> is enabled and the rule matches a <strong>Windows Event</strong></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h4>Example:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>The following rule will generate rules to trace <strong>any Event ID</strong> from channel
+<strong>Microsoft-Windows-Sysmon/Operational</strong> where either the <strong>ProcessGuid</strong> or
+<strong>ParentProcessGuid</strong> is equal to the <strong>ProcessGuid</strong> of the event which triggered the
+rule.</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;MaliciousLsassAccess&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Mimikatz&quot;</span><span class="p">,</span> <span class="s2">&quot;Credentials&quot;</span><span class="p">,</span> <span class="s2">&quot;Lsass&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;Meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;EventIDs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+    <span class="nt">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Microsoft-Windows-Sysmon/Operational&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;Computers&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;Traces&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;*::ProcessGuid = ProcessGuid&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;*::ParentProcessGuid = ProcessGuid&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;Criticality&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nt">&quot;Author&quot;</span><span class="p">:</span> <span class="s2">&quot;0xrawsec&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;Matches&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;$ct: CallTrace ~= &#39;UNKNOWN&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$lsass: TargetImage ~= &#39;(?i:\\\\lsass\\.exe$)&#39;&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;Condition&quot;</span><span class="p">:</span> <span class="s2">&quot;$lsass and $ct&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="condition-format">
+<h3>Condition Format<a class="headerlink" href="#condition-format" title="Permalink to this headline">¶</a></h3>
+<p>A condition applies a logic to the different <strong>Matches</strong> defined in the rule.
+If the result of the computation of the <strong>Condition</strong> is <strong>true</strong> the event is
+considered as matching the rule.</p>
+<table border="1" class="docutils" id="id9">
+<caption><span class="caption-text">Allowed Symbols in Condition</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Symbols</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">$var</span></code></td>
+<td>Variable referencing a <strong>Match</strong></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">()</span></code></td>
+<td>Used to group / prioritize some logical expressions</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">!</span></code></td>
+<td>Negates a <strong>Match</strong> or a grouped expression</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">AND</span></code></td>
+<td rowspan="3">AND logical operator</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">and</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">OR</span></code></td>
+<td rowspan="3">OR logical operator</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">or</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">||</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">For every <strong>Windows Event</strong> tested against a rule the <strong>Condition</strong> is evaluated in real
+time <strong>from left to right</strong>. As a consequence, the order of the variables to
+check might have a small impact on the rule performances. For more efficiency
+always try to put the more restrictive ones first.</p>
+</div>
+<div class="section" id="id4">
+<h4>Example:<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>The following rule is used to match suspicious explicit network logons, we can
+see an example of an advanced condition.</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;ExplicitNetworkLogon&quot;</span><span class="p">,</span>
+<span class="nt">&quot;Tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Lateral&quot;</span><span class="p">,</span> <span class="s2">&quot;Security&quot;</span><span class="p">],</span>
+<span class="nt">&quot;Meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;EventIDs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4624</span><span class="p">],</span>
+  <span class="nt">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Security&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;Computers&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;Criticality&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="nt">&quot;Author&quot;</span><span class="p">:</span> <span class="s2">&quot;@0xrawsec&quot;</span>
+  <span class="p">},</span>
+<span class="nt">&quot;Matches&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;$logt: LogonType = &#39;3&#39;&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;$user: TargetUserName = &#39;ANONYMOUS LOGON&#39;&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;$iplh1: IpAddress = &#39;-&#39;&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;$iplh2: IpAddress = &#39;127.0.0.1&#39;&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;$enddol: TargetUserName ~= &#39;\\$$&#39;&quot;</span>
+  <span class="p">],</span>
+<span class="nt">&quot;Condition&quot;</span><span class="p">:</span> <span class="s2">&quot;$logt and !($user or $iplh1 or $iplh2 or $enddol)&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="getstart.html" class="btn btn-neutral" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, 0xrawsec.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
